@@ -20,27 +20,22 @@ Solution by Jamison Lahman, June 4, 2017
 """
 import re
 
-
-rev = []
-
-fname = input('Enter file: ')
+fh = input('Enter File: ')
 try:
-    fhand = open(fname)
-except FileNotFoundError:
-    print('File cannot be opened: ', fname)
+    fhand = open(fh)
+except:
+    print('This file could not be opened, please try again.')
     exit()
 
-
+sum = 0
+count = 0
 for line in fhand:
     line = line.rstrip()
-    rev_temp = re.findall('^New Revision: ([0-9.]+)', line)
-    if not rev_temp:
-        for val in rev_temp:
-            val = float(val)            # Convert the strings to floats
-            rev = rev + [val]           # Concats new values
+    numbers = re.findall('^New Revision: ([0-9]+)', line) # for each valid number found, each one is added to the new list of 'numbers'
+    for number in numbers:
+        value = int(number)
+        sum += value
+        count += 1
 
-rev_sum = sum(rev)
-count = float(len(rev))
-rev_ave = rev_sum / count
-
-print(rev_ave)
+average = sum / count
+print(int(average))
